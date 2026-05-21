@@ -1,0 +1,40 @@
+[project]
+name = "code-rag"
+version = "0.1.0"
+description = "Hybrid retrieval (BM25 + dense + reranker) for code documentation."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chromadb>=1.0.0",
+    "httpx>=0.28.1",
+    "jieba>=0.42.1",
+    "numpy>=2.0.0",
+    "pyyaml>=6.0.2",
+    "rank-bm25>=0.2.2",
+]
+
+[project.optional-dependencies]
+bge = [
+    "sentence-transformers>=5.0.0",
+    "torch>=2.0.0",
+]
+dev = [
+    "hypothesis>=6.131.0",
+    "pytest>=8.3.0",
+    "pytest-asyncio>=1.0.0",
+    "pytest-mock>=3.14.0",
+]
+
+[project.scripts]
+rag = "rag.cli:main"
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["rag", "rag.providers"]
+
+[tool.setuptools.package-dir]
+"rag" = "."
+"rag.providers" = "providers"

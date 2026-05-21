@@ -1,0 +1,17 @@
+[project]
+name = "code-rag-workspace"
+version = "0.0.0"
+description = "Workspace root for code-rag monorepo."
+requires-python = ">=3.13"
+dependencies = ["code-rag", "code-rag-server"]
+
+[project.optional-dependencies]
+dev = ["code-rag[dev]"]
+bge = ["code-rag[bge]"]
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+code-rag = { workspace = true }
+code-rag-server = { workspace = true }

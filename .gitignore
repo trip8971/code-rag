@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+
+# uv
+# uv.lock
+
+# ChromaDB index data
+# chroma_db/
+
+# BM25 persisted index
+# *.pkl
+
+# Hypothesis test database
+.hypothesis/
+
+# Test artifacts
+MagicMock/
+.pytest_cache/
+
+# Config with secrets (use template/rag_config.yaml as reference)
+rag_config.yaml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -1,0 +1,26 @@
+[project]
+name = "code-rag-server"
+version = "0.1.0"
+description = "Web UI for code-rag document retrieval."
+requires-python = ">=3.13"
+dependencies = [
+    "code-rag",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.34.0",
+]
+
+[project.scripts]
+rag-server = "server:main"
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["server"]
+
+[tool.setuptools.package-dir]
+"server" = "."
+
+[tool.setuptools.package-data]
+"server" = ["static/**/*", "templates/**/*"]

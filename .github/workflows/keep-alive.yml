@@ -1,0 +1,40 @@
+name: Keep Alive
+
+on:
+  schedule:
+    # GitHub Actions cron 最低粒度 5 分钟，且实际执行时间可能延迟数分钟
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "目标 URL"
+        required: false
+        default: "https://code-rag-2fp7.onrender.com/"
+
+concurrency:
+  group: keep-alive
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping target URL
+        env:
+          TARGET_URL: ${{ github.event.inputs.url || 'https://code-rag-2fp7.onrender.com/' }}
+        run: |
+          set -euo pipefail
+          echo "Pinging ${TARGET_URL}"
+          response=$(curl -sS -o /dev/null \
+            -w "status=%{http_code} time_total=%{time_total}s size=%{size_download}B\n" \
+            --max-time 30 \
+            --retry 3 --retry-delay 5 --retry-connrefused \
+            -A "github-actions-keep-alive/1.0" \
+            "${TARGET_URL}")
+          echo "${response}"
+          status=$(echo "${response}" | sed -n 's/.*status=\([0-9]*\).*/\1/p')
+          if [ -z "${status}" ] || [ "${status}" -lt 200 ] || [ "${status}" -ge 400 ]; then
+            echo "::warning::Unexpected status code: ${status}"
+            exit 1
+          fi

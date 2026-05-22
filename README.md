@@ -1,6 +1,7 @@
 # code-rag
 
-Hybrid retrieval (BM25 + dense + reranker) for code documentation.
+Hybrid retrieval (BM25 + dense + reranker) for code documentation.  
+Demo: [https://code-rag-2fp7.onrender.com/](https://code-rag-2fp7.onrender.com/)
 
 ## Install
 
